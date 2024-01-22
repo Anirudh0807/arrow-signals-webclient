@@ -98,20 +98,9 @@ export default function LoginPage() {
             "uid",
             res.data.userData.id.toString() ?? "ERROR"
           );
-          // navigate("/");
+          navigate("/");
         }
       });
-      // fetch("http://localhost:3000/auth/signin", {
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify(loginForm),
-      // })
-      //   .then((response) => response.json())
-      //   .then((data) => {
-      //
-      //   });
     }
   }
 
