@@ -4,7 +4,6 @@ import SuccessRateCard from "../components/successCard";
 import Layout from "./layout";
 import { useEffect, useState } from "react";
 
-
 interface SuccessData {
   successRate: string;
   timeFrame: string;
@@ -91,7 +90,6 @@ const Home = () => {
           </Flex>
         </Flex>
       </Box>
-
       <Box px={{ base: 4, md: 10 }} mt={8}>
         <Text
           color={"white"}
@@ -107,15 +105,11 @@ const Home = () => {
           justifyContent="center"
           mt={4}
         >
-          {userFavourites.length===0 ? (
+          {userFavourites.length === 0 ? (
             <Text color="white">No Favourites</Text>
           ) : (
             userFavourites.map((data, index) => (
-              <CommodityCard
-                key={index}
-                data={data}
-                isFavourite={true}
-              />
+              <CommodityCard key={index} data={data} isFavourite={true} />
             ))
           )}
         </Flex>
@@ -151,15 +145,11 @@ const Home = () => {
           justifyContent="center"
           mt={4}
         >
-          {userFavourites.length===0 ? (
+          {userFavourites.length === 0 ? (
             <Text color="white">No Favourites</Text>
           ) : (
             userFavourites.map((data, index) => (
-              <CommodityCard
-                key={index}
-                data={data}
-                isFavourite={false}
-              />
+              <CommodityCard key={index} data={data} isFavourite={false} />
             ))
           )}
         </Flex>
@@ -195,15 +185,11 @@ const Home = () => {
           justifyContent="center"
           mt={4}
         >
-          {userFavourites.length===0 ? (
+          {userFavourites.length === 0 ? (
             <Text color="white">No Favourites</Text>
           ) : (
             userFavourites.map((data, index) => (
-              <CommodityCard
-                key={index}
-                data={data}
-                isFavourite={false}
-              />
+              <CommodityCard key={index} data={data} isFavourite={false} />
             ))
           )}
         </Flex>

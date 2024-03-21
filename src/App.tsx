@@ -24,19 +24,19 @@ function App() {
     },
     {
       path: "/",
-      element: <Home/>,
+      element: <Home />,
     },
     {
       path: "/subscribe",
-      element: <PricingPage/>,
+      element: <PricingPage />,
     },
     {
       path: "/markets",
-      element: <MarketsAndExchanges/>
+      element: <MarketsAndExchanges />,
     },
     {
       path: "/admin/home",
-      element: <AdminHome/>
+      element: <AdminHome />,
     },
   ]);
 
