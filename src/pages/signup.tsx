@@ -33,12 +33,14 @@ export default function SignupPage() {
     email: "",
     password: "",
     confirmPassword: "",
+    phoneNumber: "",
   });
   const [formError, setFormError] = useState({
     fullName: "",
     email: "",
     password: "",
     confirmPassword: "",
+    phoneNumber: "",
   });
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
@@ -98,6 +100,7 @@ export default function SignupPage() {
       email: "",
       password: "",
       confirmPassword: "",
+      phoneNumber: "",
     });
   }
 
