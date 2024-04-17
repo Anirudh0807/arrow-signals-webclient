@@ -20,17 +20,12 @@ import {
   Text,
   useColorModeValue,
   useDisclosure,
-  useToast
+  useToast,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { IconType } from "react-icons";
 import { FaStore, FaUser } from "react-icons/fa6";
-import {
-  FiBell,
-  FiLogOut,
-  FiMenu,
-  FiSettings
-} from "react-icons/fi";
+import { FiBell, FiLogOut, FiMenu, FiSettings } from "react-icons/fi";
 import { IoMdHome } from "react-icons/io";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -42,7 +37,6 @@ interface LinkItemProps {
 
 interface NavItemProps extends FlexProps {
   icon: IconType;
-  children: React.ReactNode;
   isActive?: boolean;
   path: string;
 }
@@ -58,18 +52,16 @@ interface SidebarProps extends BoxProps {
 
 const LinkItems: Array<LinkItemProps> = [
   { name: "Home", icon: IoMdHome, path: "/" },
-  { name: "Markets & Exchanges", icon: FaStore, path: "/trending" },
+  { name: "Markets & Exchanges", icon: FaStore, path: "/markets" },
   { name: "Profile", icon: FaUser, path: "/profile" },
 ];
 
-
-
 const SidebarContent = ({ onClose, pathName, ...rest }: SidebarProps) => {
-  const navigate=useNavigate();
+  const navigate = useNavigate();
   const toast = useToast();
-  function logOut(){
-    localStorage.removeItem('accessToken')
-    console.log(localStorage.getItem('ab'));
+  function logOut() {
+    localStorage.removeItem("accessToken");
+    console.log(localStorage.getItem("ab"));
     toast({
       title: "Logged Out Successfully",
       description: "See you soon 👋👋👋",
@@ -78,7 +70,7 @@ const SidebarContent = ({ onClose, pathName, ...rest }: SidebarProps) => {
       isClosable: true,
       position: "top-right",
     });
-    navigate('/login')
+    navigate("/login");
   }
   return (
     <Box
@@ -133,7 +125,13 @@ const SidebarContent = ({ onClose, pathName, ...rest }: SidebarProps) => {
             {"Settings"}
           </NavItem>
 
-          <NavItem key={"Logout"} icon={FiLogOut} onClick={logOut}>
+          <NavItem
+            key={"Logout"}
+            icon={FiLogOut}
+            onClick={logOut}
+            isActive={pathName === "Settings"}
+            path="/login"
+          >
             {"Logout"}
           </NavItem>
         </Box>
@@ -168,7 +166,7 @@ const NavItem = ({ icon, children, isActive, path, ...rest }: NavItemProps) => {
         >
           {icon && (
             <Icon
-              mr="4"
+              mr="2"
               fontSize="25"
               color={"white"}
               _groupHover={{
@@ -307,9 +305,11 @@ const Layout = ({ children, pathName }: HomeProps) => {
         </DrawerContent>
       </Drawer>
       <MobileNav onOpen={onOpen} />
-      <Box bg={"#121212"} ml={{ base: 0, md: 60 }} p="4">
-        {children}
-      </Box>
+      <Flex direction={"column"} flex={1}>
+        <Box bg={"#121212"} ml={{ base: 0, md: 60 }} p="4">
+          {children}
+        </Box>
+      </Flex>
     </Box>
   );
 };

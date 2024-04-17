@@ -4,6 +4,7 @@ import LoginPage from "./pages/login";
 import SignupPage from "./pages/signup";
 import Home from "./pages/home";
 import UserProfile from "./pages/profile";
+import MarketsAndExchanges from "./pages/markets";
 
 function App() {
   const router = createBrowserRouter([
@@ -23,6 +24,10 @@ function App() {
     {
       path: "/",
       element: <Home/>,
+    },
+    {
+      path: "/markets",
+      element: <MarketsAndExchanges/>
     },
   ]);
 
