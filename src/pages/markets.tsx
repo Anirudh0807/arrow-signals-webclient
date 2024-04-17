@@ -60,7 +60,7 @@ const MarketsAndExchanges = () => {
   };
 
   const handleActionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    if(event.target.value === "All") {
+    if (event.target.value === "All") {
       setAction("");
     } else {
       setAction(event.target.value);
@@ -74,7 +74,7 @@ const MarketsAndExchanges = () => {
       (!type || data.market === type) &&
       (!action || data.latestSignal.type === action)
   );
-  
+
   const closedSignals = data.filter(
     (data) =>
       data.latestSignal.status === "Closed" &&
@@ -99,7 +99,7 @@ const MarketsAndExchanges = () => {
         mt={8}
         gap={4}
         justify={"space-between"}
-        alignItems={{ base: "flex-end", md: "none"}}
+        alignItems={{ base: "flex-end", md: "none" }}
         px={{ base: 4, md: 10 }}
       >
         <Flex gap={8}>
@@ -169,7 +169,11 @@ const MarketsAndExchanges = () => {
             No Open Signals
           </Text>
         ) : (
-          <SimpleGrid mt={10} columns={{ base: 1, md: 2, lg: 3 }} spacing={{ base: 6, md: 10 }}>
+          <SimpleGrid
+            mt={10}
+            columns={{ base: 1, md: 2, lg: 3 }}
+            spacing={{ base: 6, md: 10 }}
+          >
             {openSignals.map((data, index) => (
               <CommodityCard key={index} data={data} isFavourite={false} />
             ))}
@@ -178,7 +182,7 @@ const MarketsAndExchanges = () => {
       </Box>
 
       <Box px={{ base: 4, md: 10 }} my={4}>
-        <Divider/>
+        <Divider />
       </Box>
 
       <Box px={{ base: 4, md: 10 }}>
@@ -196,7 +200,11 @@ const MarketsAndExchanges = () => {
             No Closed Signals
           </Text>
         ) : (
-          <SimpleGrid mt={10} columns={{ base: 1, md: 2, lg: 3 }} spacing={{ base: 6, md: 10 }}>
+          <SimpleGrid
+            mt={10}
+            columns={{ base: 1, md: 2, lg: 3 }}
+            spacing={{ base: 6, md: 10 }}
+          >
             {closedSignals.map((data, index) => (
               <CommodityCard key={index} data={data} isFavourite={false} />
             ))}
