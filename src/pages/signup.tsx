@@ -115,13 +115,16 @@ export default function SignupPage() {
       });
     } else {
       setLoading(true);
-      console.log("Body is", JSON.stringify(signupForm))
       fetch('http://localhost:3000/auth/signup', {
         method: 'POST',
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify(signupForm)
+        body: JSON.stringify({
+          "name":signupForm.fullName,
+          "email": signupForm.email,
+          "password":signupForm.password
+        })
       })
         .then(response => response.json())
         .then((data) => {
@@ -129,7 +132,7 @@ export default function SignupPage() {
           setLoading(false);
           if (data['statusCode'] != null) {
             toast({
-              title: "Signup Failed",
+              title: data['message'],
               description: data.message || "Failed to signup!",
               status: "error",
               duration: 5000,
@@ -137,6 +140,9 @@ export default function SignupPage() {
               position: "top-right",
             });
           } else {
+            localStorage.setItem('accessToken',data['token']??'ERROR')
+            localStorage.setItem('userId',data['userData']['id']??'ERROR')
+            console.log("Access Token " ,localStorage.getItem('accessToken'))
             navigate('/')
           }
         })

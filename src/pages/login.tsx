@@ -83,7 +83,6 @@ export default function LoginPage() {
       });
     } else {
       setLoading(true);
-      console.log("Body is", JSON.stringify(loginForm))
       fetch('http://localhost:3000/auth/signin', {
         method: 'POST',
         headers: {
@@ -105,7 +104,8 @@ export default function LoginPage() {
               position: "top-right",
             });
           } else {
-            localStorage.setItem('accessToken',data['token']??'9090')
+            localStorage.setItem('accessToken',data['token'] ?? 'ERROR')
+            localStorage.setItem('userId',data['userData']['id']??'ERROR')
             navigate('/')
 
           }
