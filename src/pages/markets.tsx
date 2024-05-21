@@ -33,7 +33,7 @@ interface dataFormat {
 const MarketsAndExchanges = () => {
   const [type, setType] = useState<string>("");
   const [time, setTime] = useState<string>("This week");
-  const [action, setAction] = useState<string>("Buy");
+  const [action, setAction] = useState<string>("");
   const [data, setData] = useState<dataFormat[]>([]);
 
   useEffect(() => {
@@ -60,7 +60,11 @@ const MarketsAndExchanges = () => {
   };
 
   const handleActionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setAction(event.target.value);
+    if(event.target.value === "All") {
+      setAction("");
+    } else {
+      setAction(event.target.value);
+    }
     console.log(action);
   };
 
@@ -95,6 +99,7 @@ const MarketsAndExchanges = () => {
         mt={8}
         gap={4}
         justify={"space-between"}
+        alignItems={{ base: "flex-end", md: "none"}}
         px={{ base: 4, md: 10 }}
       >
         <Flex gap={8}>
@@ -130,10 +135,11 @@ const MarketsAndExchanges = () => {
         <Flex gap={8}>
           <Select
             variant="filled"
-            placeholder="Buy"
+            placeholder="All"
             w={"max-content"}
             onChange={handleActionChange}
           >
+            <option>Buy</option>
             <option>Sell</option>
           </Select>
           <Select
@@ -163,7 +169,7 @@ const MarketsAndExchanges = () => {
             No Open Signals
           </Text>
         ) : (
-          <SimpleGrid mt={10} columns={3} spacing={{ base: 6, md: 10 }}>
+          <SimpleGrid mt={10} columns={{ base: 1, md: 2, lg: 3 }} spacing={{ base: 6, md: 10 }}>
             {openSignals.map((data, index) => (
               <CommodityCard key={index} data={data} isFavourite={false} />
             ))}
@@ -172,7 +178,7 @@ const MarketsAndExchanges = () => {
       </Box>
 
       <Box px={{ base: 4, md: 10 }} my={4}>
-        <Divider />
+        <Divider/>
       </Box>
 
       <Box px={{ base: 4, md: 10 }}>
@@ -190,7 +196,7 @@ const MarketsAndExchanges = () => {
             No Closed Signals
           </Text>
         ) : (
-          <SimpleGrid mt={10} columns={3} spacing={{ base: 6, md: 10 }}>
+          <SimpleGrid mt={10} columns={{ base: 1, md: 2, lg: 3 }} spacing={{ base: 6, md: 10 }}>
             {closedSignals.map((data, index) => (
               <CommodityCard key={index} data={data} isFavourite={false} />
             ))}

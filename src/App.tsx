@@ -5,6 +5,7 @@ import SignupPage from "./pages/signup";
 import Home from "./pages/home";
 import UserProfile from "./pages/profile";
 import MarketsAndExchanges from "./pages/markets";
+import AdminHome from "./pages/adminHome";
 
 function App() {
   const router = createBrowserRouter([
@@ -28,6 +29,10 @@ function App() {
     {
       path: "/markets",
       element: <MarketsAndExchanges/>
+    },
+    {
+      path: "/admin/home",
+      element: <AdminHome/>
     },
   ]);
 

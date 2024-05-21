@@ -79,7 +79,7 @@ const Home = () => {
           <Flex
             direction={{ base: "column", lg: "row" }}
             gap={{ base: 4, md: 10 }}
-            alignItems="center"
+            alignItems="space-between"
           >
             {successdata.map((data, index) => (
               <SuccessRateCard
@@ -107,8 +107,8 @@ const Home = () => {
           justifyContent="center"
           mt={4}
         >
-          {isLoading ? (
-            <Text color="white">Loading...</Text>
+          {userFavourites.length===0 ? (
+            <Text color="white">No Favourites</Text>
           ) : (
             userFavourites.map((data, index) => (
               <CommodityCard
@@ -151,8 +151,8 @@ const Home = () => {
           justifyContent="center"
           mt={4}
         >
-          {isLoading ? (
-            <Text color="white">Loading...</Text>
+          {userFavourites.length===0 ? (
+            <Text color="white">No Favourites</Text>
           ) : (
             userFavourites.map((data, index) => (
               <CommodityCard
@@ -195,8 +195,8 @@ const Home = () => {
           justifyContent="center"
           mt={4}
         >
-          {isLoading ? (
-            <Text color="white">Loading...</Text>
+          {userFavourites.length===0 ? (
+            <Text color="white">No Favourites</Text>
           ) : (
             userFavourites.map((data, index) => (
               <CommodityCard
