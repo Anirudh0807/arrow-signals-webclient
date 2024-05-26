@@ -305,11 +305,9 @@ const Layout = ({ children, pathName }: HomeProps) => {
         </DrawerContent>
       </Drawer>
       <MobileNav onOpen={onOpen} />
-      <Flex direction={"column"} flex={1}>
-        <Box bg={"#121212"} ml={{ base: 0, md: 60 }} p="4">
-          {children}
-        </Box>
-      </Flex>
+      <Box minH={"90vh"} bg={"#121212"} ml={{ base: 0, md: 60 }} p="4">
+        {children}
+      </Box>
     </Box>
   );
 };
