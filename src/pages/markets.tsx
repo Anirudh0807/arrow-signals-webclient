@@ -30,29 +30,53 @@ interface dataFormat {
   };
 }
 
+interface MarketSchema {
+  id: number;
+  name: string;
+}
+
 const MarketsAndExchanges = () => {
   const [type, setType] = useState<string>("");
   const [time, setTime] = useState<string>("This week");
   const [action, setAction] = useState<string>("");
   const [data, setData] = useState<dataFormat[]>([]);
 
+  const [markets, setMarkets] = useState<MarketSchema[]>([]);
+
   useEffect(() => {
-    const getData = async () => {
-      try {
-        const response = await fetch(
-          "http://localhost:3000/signals/getLatestSignals"
-        );
-
-        const res = await response.json();
-        setData(res.data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
     getData();
     console.log(data);
+    getMarkets();
   }, []);
+
+  const getData = async () => {
+    try {
+      const response = await fetch(
+        "http://localhost:3000/signals/getLatestSignals"
+      );
+
+      const res = await response.json();
+      console.log(res);
+      setData(res.data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  const getMarkets = async () => {
+    const response = await fetch("http://localhost:3000/market/get-all", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    const res = await response.json();
+
+    if (!res.error) {
+      setMarkets(res.data);
+    }
+  };
 
   const handleTimeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setTime(event.target.value);
@@ -60,7 +84,7 @@ const MarketsAndExchanges = () => {
   };
 
   const handleActionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    if(event.target.value === "All") {
+    if (event.target.value === "All") {
       setAction("");
     } else {
       setAction(event.target.value);
@@ -70,13 +94,15 @@ const MarketsAndExchanges = () => {
 
   const openSignals = data.filter(
     (data) =>
+      data.latestSignal &&
       data.latestSignal.status === "Open" &&
       (!type || data.market === type) &&
       (!action || data.latestSignal.type === action)
   );
-  
+
   const closedSignals = data.filter(
     (data) =>
+      data.latestSignal &&
       data.latestSignal.status === "Closed" &&
       (!type || data.market === type) &&
       (!action || data.latestSignal.type === action)
@@ -99,37 +125,29 @@ const MarketsAndExchanges = () => {
         mt={8}
         gap={4}
         justify={"space-between"}
-        alignItems={{ base: "flex-end", md: "none"}}
+        alignItems={{ base: "flex-end", md: "none" }}
         px={{ base: 4, md: 10 }}
       >
         <Flex gap={8}>
-          <Button
-            onClick={() => {
-              setType(type === "Commodity" ? "" : "Commodity");
-              console.log(data);
-            }}
-            bg={type === "Commodity" ? "blue.500" : "gray.500"}
-          >
-            Commodity
-          </Button>
-          <Button
-            onClick={() => {
-              setType(type === "Forex" ? "" : "Forex");
-              console.log(type);
-            }}
-            bg={type === "Forex" ? "blue.500" : "gray.500"}
-          >
-            Forex
-          </Button>
-          <Button
-            onClick={() => {
-              setType(type === "Stocks" ? "" : "Stocks");
-              console.log(type);
-            }}
-            bg={type === "Stocks" ? "blue.500" : "gray.500"}
-          >
-            Stocks
-          </Button>
+          {markets && markets.length > 0 ? (
+            markets.map((market) => (
+              <Button
+                key={market.id}
+                bg={ type===market.name ? "purple.500" : "gray.700" }
+                onClick={() => {
+                  if (type !== market.name) {
+                    setType(market.name);
+                  } else {
+                    setType("");
+                  }
+                }}
+              >
+                {market.name}
+              </Button>
+            ))
+          ) : (
+            <></>
+          )}
         </Flex>
 
         <Flex gap={8}>
@@ -169,7 +187,11 @@ const MarketsAndExchanges = () => {
             No Open Signals
           </Text>
         ) : (
-          <SimpleGrid mt={10} columns={{ base: 1, md: 2, lg: 3 }} spacing={{ base: 6, md: 10 }}>
+          <SimpleGrid
+            mt={10}
+            columns={{ base: 1, md: 2, lg: 3 }}
+            spacing={{ base: 6, md: 10 }}
+          >
             {openSignals.map((data, index) => (
               <CommodityCard key={index} data={data} isFavourite={false} />
             ))}
@@ -178,7 +200,7 @@ const MarketsAndExchanges = () => {
       </Box>
 
       <Box px={{ base: 4, md: 10 }} my={4}>
-        <Divider/>
+        <Divider />
       </Box>
 
       <Box px={{ base: 4, md: 10 }}>
@@ -196,7 +218,11 @@ const MarketsAndExchanges = () => {
             No Closed Signals
           </Text>
         ) : (
-          <SimpleGrid mt={10} columns={{ base: 1, md: 2, lg: 3 }} spacing={{ base: 6, md: 10 }}>
+          <SimpleGrid
+            mt={10}
+            columns={{ base: 1, md: 2, lg: 3 }}
+            spacing={{ base: 6, md: 10 }}
+          >
             {closedSignals.map((data, index) => (
               <CommodityCard key={index} data={data} isFavourite={false} />
             ))}

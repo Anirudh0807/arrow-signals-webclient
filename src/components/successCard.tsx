@@ -18,12 +18,12 @@ const SuccessRateCard: React.FC<SuccessRateCardProps> = ({ successRate, timeFram
       flexDirection="column"
       justifyContent="space-between"
     >
-      <Flex alignItems="center">
+      <Flex alignItems="center" justifyContent={"center"}>
         <Text fontSize="2xl" fontWeight="bold" color="white">
           Success Rate
         </Text>
       </Flex>
-      <Flex alignItems="center" justifyContent="space-between" gap={4}>
+      <Flex alignItems="center" justifyContent="center" gap={4}>
         <Text fontSize="3xl" fontWeight={"bold"} color="white">
           {successRate}
         </Text>

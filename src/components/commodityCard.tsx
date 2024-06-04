@@ -117,7 +117,7 @@ const CommodityCard: React.FC<CommodityCardProps> = ({ data, isFavourite }) => {
           </Flex>
           <Flex gap={2} direction={"column"}>
             <Text color={"#84868a"}>Call Status</Text>
-            <Text color={"#ffffff"}>{data.latestSignal.status}</Text>
+            <Text color={"#ffffff"}>{data.latestSignal.status || "Open"}</Text>
           </Flex>
           <Flex gap={2} direction={"column"}>
             <Text color={"#84868a"}>Stoploss</Text>
@@ -153,7 +153,7 @@ const CommodityCard: React.FC<CommodityCardProps> = ({ data, isFavourite }) => {
           <Text color={"#84868a"}>
             Last Modified on {formatCreatedAt(data.latestSignal.createdAt)}
           </Text>
-          <Button bg={"#9359c6"} rounded={"full"}>
+          <Button bg={"#9359c6"} rounded={"full"} _hover={{ bg: "#7938b3" }}>
             <Text fontSize={"sm"} color={"#ffffff"} onClick={onOpen}>
               View Details
             </Text>

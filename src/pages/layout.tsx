@@ -10,6 +10,11 @@ import {
   HStack,
   Icon,
   IconButton,
+  Menu,
+  MenuButton,
+  MenuDivider,
+  MenuItem,
+  MenuList,
   Popover,
   PopoverArrow,
   PopoverBody,
@@ -57,21 +62,6 @@ const LinkItems: Array<LinkItemProps> = [
 ];
 
 const SidebarContent = ({ onClose, pathName, ...rest }: SidebarProps) => {
-  const navigate = useNavigate();
-  const toast = useToast();
-  function logOut() {
-    localStorage.removeItem("accessToken");
-    console.log(localStorage.getItem("ab"));
-    toast({
-      title: "Logged Out Successfully",
-      description: "See you soon 👋👋👋",
-      status: "success",
-      duration: 5000,
-      isClosable: true,
-      position: "top-right",
-    });
-    navigate("/login");
-  }
   return (
     <Box
       transition="3s ease"
@@ -113,27 +103,6 @@ const SidebarContent = ({ onClose, pathName, ...rest }: SidebarProps) => {
               {link.name}
             </NavItem>
           ))}
-        </Box>
-
-        <Box mb={5}>
-          <NavItem
-            key={"Settings"}
-            icon={FiSettings}
-            path="/settings"
-            isActive={pathName === "Settings"}
-          >
-            {"Settings"}
-          </NavItem>
-
-          <NavItem
-            key={"Logout"}
-            icon={FiLogOut}
-            onClick={logOut}
-            isActive={pathName === "Settings"}
-            path="/login"
-          >
-            {"Logout"}
-          </NavItem>
         </Box>
       </Flex>
     </Box>
@@ -191,6 +160,22 @@ const NavItem = ({ icon, children, isActive, path, ...rest }: NavItemProps) => {
 
 const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
   const [notificationCount, setNotificationCount] = useState(0);
+
+  const navigate = useNavigate();
+  const toast = useToast();
+  function logOut() {
+    localStorage.removeItem("accessToken");
+    console.log(localStorage.getItem("ab"));
+    toast({
+      title: "Logged Out Successfully",
+      description: "See you soon 👋👋👋",
+      status: "success",
+      duration: 5000,
+      isClosable: true,
+      position: "top-right",
+    });
+    navigate("/login");
+  }
 
   return (
     <Flex
@@ -263,15 +248,30 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
           </PopoverContent>
         </Popover>
 
-        <Flex alignItems={"center"}>
-          <Avatar
-            mr={10}
-            size={"sm"}
-            src={
-              "https://images.unsplash.com/photo-1619946794135-5bc917a27793?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9"
-            }
-          />
-        </Flex>
+        <Menu>
+          <MenuButton>
+            <Flex alignItems={"center"}>
+              <Avatar
+                mr={10}
+                size={"sm"}
+                src={
+                  "https://images.unsplash.com/photo-1619946794135-5bc917a27793?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9"
+                }
+              />
+            </Flex>
+          </MenuButton>
+          <MenuList>
+            <MenuItem
+              onClick={() => {
+                navigate("/settings");
+              }}
+            >
+              Settings
+            </MenuItem>
+            <MenuDivider />
+            <MenuItem onClick={logOut}>Sign out</MenuItem>
+          </MenuList>
+        </Menu>
       </HStack>
     </Flex>
   );

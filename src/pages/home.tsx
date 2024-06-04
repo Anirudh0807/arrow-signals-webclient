@@ -1,9 +1,10 @@
-import { Box, Flex, Select, Text } from "@chakra-ui/react";
+import { Box, Flex, Select, SimpleGrid, Text } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+import AddScript from "../components/addScript";
+import AddSignal from "../components/addSignal";
 import CommodityCard from "../components/commodityCard";
 import SuccessRateCard from "../components/successCard";
 import Layout from "./layout";
-import { useEffect, useState } from "react";
-
 
 interface SuccessData {
   successRate: string;
@@ -68,27 +69,38 @@ const Home = () => {
   return (
     <Layout pathName="Home">
       <Box px={{ base: 4, md: 10 }}>
-        <Text
-          fontSize={{ base: "2xl", md: "3xl" }}
-          fontWeight={"bold"}
-          color={"white"}
+        <Flex
+          alignContent={"center"}
+          justifyContent={"space-between"}
+          direction={{ base: "column", md: "row" }}
         >
-          Hey Anirudh!
-        </Text>
-        <Flex justifyContent={"center"} mt={5}>
-          <Flex
-            direction={{ base: "column", lg: "row" }}
-            gap={{ base: 4, md: 10 }}
-            alignItems="space-between"
+          <Text
+            fontSize={{ base: "2xl", md: "3xl" }}
+            fontWeight={"bold"}
+            color={"white"}
           >
-            {successdata.map((data, index) => (
-              <SuccessRateCard
-                key={index}
-                successRate={data.successRate}
-                timeFrame={data.timeFrame}
-              />
-            ))}
+            Hey Anirudh!
+          </Text>
+
+          <Flex alignContent={"center"} gap={5} mt={{ sm: 10, md: 0 }}>
+            <AddScript />
+            <AddSignal />
           </Flex>
+        </Flex>
+        <Flex
+          direction={{ base: "column", lg: "row" }}
+          gap={{ base: 4, md: 10 }}
+          alignItems="space-between"
+          justifyContent={"flex-start"}
+          mt={5}
+        >
+          {successdata.map((data, index) => (
+            <SuccessRateCard
+              key={index}
+              successRate={data.successRate}
+              timeFrame={data.timeFrame}
+            />
+          ))}
         </Flex>
       </Box>
 
@@ -100,28 +112,30 @@ const Home = () => {
         >
           Favourites
         </Text>
-        <Flex
-          direction={{ base: "column", lg: "row" }}
-          gap={{ base: 6, md: 10 }}
-          alignItems="center"
-          justifyContent="center"
-          mt={4}
-        >
-          {userFavourites.length===0 ? (
-            <Text color="white">No Favourites</Text>
-          ) : (
-            userFavourites.map((data, index) => (
-              <CommodityCard
-                key={index}
-                data={data}
-                isFavourite={true}
-              />
-            ))
-          )}
-        </Flex>
+        {userFavourites && userFavourites.length === 0 ? (
+          <Text
+            fontSize={{ base: "md", md: "lg" }}
+            fontWeight={"semibold"}
+            color={"white"}
+            textAlign={"center"}
+          >
+            {" "}
+            No Favourites
+          </Text>
+        ) : (
+          <SimpleGrid
+            mt={10}
+            columns={{ base: 1, md: 2, lg: 3 }}
+            spacing={{ base: 6, md: 10 }}
+          >
+            {userFavourites.map((data, index) => (
+              <CommodityCard key={index} data={data} isFavourite={true} />
+            ))}
+          </SimpleGrid>
+        )}
       </Box>
 
-      <Box px={10} mt={10}>
+      <Box px={{ base: 4, md: 10 }} mt={8}>
         <Flex alignItems="center" justifyContent="space-between">
           <Text
             color={"white"}
@@ -143,29 +157,30 @@ const Home = () => {
             <option value="past24Hours">Past 24 hours</option>
           </Select>
         </Flex>
-
-        <Flex
-          direction={{ base: "column", lg: "row" }}
-          gap={{ base: 6, md: 10 }}
-          alignItems="center"
-          justifyContent="center"
-          mt={4}
-        >
-          {userFavourites.length===0 ? (
-            <Text color="white">No Favourites</Text>
-          ) : (
-            userFavourites.map((data, index) => (
-              <CommodityCard
-                key={index}
-                data={data}
-                isFavourite={false}
-              />
-            ))
-          )}
-        </Flex>
+        {userFavourites.length === 0 ? (
+          <Text
+            fontSize={{ base: "md", md: "lg" }}
+            fontWeight={"semibold"}
+            color={"white"}
+            textAlign={"center"}
+          >
+            {" "}
+            No Favourites
+          </Text>
+        ) : (
+          <SimpleGrid
+            mt={10}
+            columns={{ base: 1, md: 2, lg: 3 }}
+            spacing={{ base: 6, md: 10 }}
+          >
+            {userFavourites.map((data, index) => (
+              <CommodityCard key={index} data={data} isFavourite={true} />
+            ))}
+          </SimpleGrid>
+        )}
       </Box>
 
-      <Box px={10} mt={10}>
+      <Box px={{ base: 4, md: 10 }} mt={8}>
         <Flex alignItems="center" justifyContent="space-between">
           <Text
             color={"white"}
@@ -187,26 +202,27 @@ const Home = () => {
             <option value="past24Hours">Last 12 Months</option>
           </Select>
         </Flex>
-
-        <Flex
-          direction={{ base: "column", lg: "row" }}
-          gap={{ base: 6, md: 10 }}
-          alignItems="center"
-          justifyContent="center"
-          mt={4}
-        >
-          {userFavourites.length===0 ? (
-            <Text color="white">No Favourites</Text>
-          ) : (
-            userFavourites.map((data, index) => (
-              <CommodityCard
-                key={index}
-                data={data}
-                isFavourite={false}
-              />
-            ))
-          )}
-        </Flex>
+        {userFavourites.length === 0 ? (
+          <Text
+            fontSize={{ base: "md", md: "lg" }}
+            fontWeight={"semibold"}
+            color={"white"}
+            textAlign={"center"}
+          >
+            {" "}
+            No Favourites
+          </Text>
+        ) : (
+          <SimpleGrid
+            mt={10}
+            columns={{ base: 1, md: 2, lg: 3 }}
+            spacing={{ base: 6, md: 10 }}
+          >
+            {userFavourites.map((data, index) => (
+              <CommodityCard key={index} data={data} isFavourite={true} />
+            ))}
+          </SimpleGrid>
+        )}
       </Box>
     </Layout>
   );
