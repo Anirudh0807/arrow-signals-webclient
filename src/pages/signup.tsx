@@ -33,14 +33,12 @@ export default function SignupPage() {
     email: "",
     password: "",
     confirmPassword: "",
-    phoneNumber: "",
   });
   const [formError, setFormError] = useState({
     fullName: "",
     email: "",
     password: "",
     confirmPassword: "",
-    phoneNumber: "",
   });
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
@@ -84,13 +82,13 @@ export default function SignupPage() {
       }));
       isValid = false;
     }
-    if (signupForm.phoneNumber === "") {
-      setFormError((prevFormErrors) => ({
-        ...prevFormErrors,
-        phoneNumber: "Phone number cannot be empty!",
-      }));
-      isValid = false;
-    }
+    // if (signupForm.phoneNumber === "") {
+    //   setFormError((prevFormErrors) => ({
+    //     ...prevFormErrors,
+    //     phoneNumber: "Phone number cannot be empty!",
+    //   }));
+    //   isValid = false;
+    // }
     return isValid;
   }
 
@@ -100,7 +98,6 @@ export default function SignupPage() {
       email: "",
       password: "",
       confirmPassword: "",
-      phoneNumber: "",
     });
   }
 

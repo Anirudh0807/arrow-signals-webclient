@@ -25,6 +25,7 @@ import { FiEye, FiEyeOff } from "react-icons/fi";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "../../public/ARROW SIGNALS.png";
+import { AuthResponseWrapper, localAuth } from "../http/auth";
 
 const emailRegex: RegExp = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 export default function LoginPage() {
@@ -55,7 +56,7 @@ export default function LoginPage() {
       emailRegex.test(loginForm.username) === false
     ) {
       setFormError((prevFormErrors) => {
-        return { ...prevFormErrors, username: "Email is not valid!" };
+        return { ...prevFormErrors, username: "Email invalid!" };
       });
       isValid = false;
     }
@@ -74,47 +75,47 @@ export default function LoginPage() {
       password: "",
     });
   }
-  function submitLoginForm() {
+
+  function submitLoginFormWithLocalAuth() {
     resetFormErrorDefault();
-    if (!validateForm()) {
-      toast({
-        title: "Invalid login form!",
-        description: "Please fill in the form correctly!",
-        status: "error",
-        duration: 5000,
-        isClosable: true,
-        position: "top-right",
-      });
-    } else {
+    if (validateForm()) {
       setLoading(true);
-      fetch("http://localhost:3000/auth/signin", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(loginForm),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          console.log(data);
-          setLoading(false);
-          if (data["statusCode"] != null) {
-            toast({
-              title: "Un-Authorized",
-              description: "User Doesn't Exists!",
-              status: "error",
-              duration: 5000,
-              isClosable: true,
-              position: "top-right",
-            });
-          } else {
-            localStorage.setItem("accessToken", data["token"] ?? "ERROR");
-            localStorage.setItem("userId", data["userData"]["id"] ?? "ERROR");
-            navigate("/");
-          }
-        });
+      localAuth(loginForm).then((res: AuthResponseWrapper) => {
+        setLoading(false);
+        if (!res.success) {
+          toast({
+            title: "Authentication failed",
+            description: "Email and password is invalid!",
+            status: "error",
+            duration: 5000,
+            isClosable: true,
+            position: "bottom",
+          });
+        } else {
+          console.log(res);
+          localStorage.setItem("at", res.data.accessToken ?? "ERROR");
+          localStorage.setItem(
+            "uid",
+            res.data.userData.id.toString() ?? "ERROR"
+          );
+          // navigate("/");
+        }
+      });
+      // fetch("http://localhost:3000/auth/signin", {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify(loginForm),
+      // })
+      //   .then((response) => response.json())
+      //   .then((data) => {
+      //
+      //   });
     }
   }
+
+  // function submitLoginFormWithGoogleAuth() {}
 
   return (
     <Flex
@@ -208,7 +209,7 @@ export default function LoginPage() {
                       bg: "white",
                       color: "black",
                     }}
-                    onClick={submitLoginForm}
+                    onClick={submitLoginFormWithLocalAuth}
                   >
                     {loading ? <Spinner /> : "Login"}
                   </Button>
@@ -226,6 +227,9 @@ export default function LoginPage() {
                   leftIcon={<FcGoogle />}
                   isLoading={loading}
                   mt={2}
+                  onClick={() => {
+                    console.log("google auth");
+                  }}
                 >
                   <Center>
                     <Text> {loading ? <Spinner /> : "Google"}</Text>
