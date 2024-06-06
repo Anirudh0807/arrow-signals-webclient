@@ -1,5 +1,7 @@
 import { extendTheme, type ThemeConfig } from "@chakra-ui/react";
-import "@fontsource/poppins";
+import "@fontsource/poppins/400.css";
+import "@fontsource/poppins/700.css";
+import "@fontsource/poppins/800.css";
 
 const config: ThemeConfig = {
   initialColorMode: "dark",
