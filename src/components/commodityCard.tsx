@@ -169,10 +169,14 @@ const CommodityCard: React.FC<CommodityCardProps> = ({ data, isFavourite }) => {
         size={"lg"}
       >
         <ModalOverlay />
-        <ModalContent bg={"#1b2028"} p={4} mx={{ base: 5, md: 0}}>
-          <ModalCloseButton color={"#9058c3"}/>
+        <ModalContent bg={"#1b2028"} p={4} mx={{ base: 5, md: 0 }}>
+          <ModalCloseButton color={"#9058c3"} />
           <ModalHeader>
-            <Flex direction={{ base: "column", md:"row"}} alignItems={"center"} justify={"space-between"}>
+            <Flex
+              direction={{ base: "column", md: "row" }}
+              alignItems={"center"}
+              justify={"space-between"}
+            >
               <Flex alignItems="center" borderRadius="md">
                 <Text color="white" fontSize={{ base: "xl", md: "3xl" }} mr={2}>
                   {data.name}
@@ -194,7 +198,11 @@ const CommodityCard: React.FC<CommodityCardProps> = ({ data, isFavourite }) => {
                 </Box>
               </Flex>
 
-              <Flex alignItems={"center"} justifyContent={"space-between"} gap={3}>
+              <Flex
+                alignItems={"center"}
+                justifyContent={"space-between"}
+                gap={3}
+              >
                 <Text color={"#84868a"} fontSize={"md"}>
                   Last Modified on{" "}
                   {formatCreatedAt(data.latestSignal.createdAt)}
@@ -256,7 +264,14 @@ const CommodityCard: React.FC<CommodityCardProps> = ({ data, isFavourite }) => {
 
             <Box>
               <Text color={"#84868a"}>Notes</Text>
-              <Textarea bg={"black"} textColor={"white"} mt={2} isReadOnly resize={"none"} variant={"outline"}>
+              <Textarea
+                bg={"black"}
+                textColor={"white"}
+                mt={2}
+                isReadOnly
+                resize={"none"}
+                variant={"outline"}
+              >
                 No notes available
               </Textarea>
             </Box>

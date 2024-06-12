@@ -5,6 +5,7 @@ import AddSignal from "../components/addSignal";
 import CommodityCard from "../components/commodityCard";
 import SuccessRateCard from "../components/successCard";
 import Layout from "./layout";
+import { useEffect, useState } from "react";
 
 interface SuccessData {
   successRate: string;
@@ -103,7 +104,6 @@ const Home = () => {
           ))}
         </Flex>
       </Box>
-
       <Box px={{ base: 4, md: 10 }} mt={8}>
         <Text
           color={"white"}
