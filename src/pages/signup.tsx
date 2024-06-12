@@ -182,11 +182,11 @@ export default function SignupPage() {
             <Stack align={"left"} marginLeft={8}>
               <Image src={logo} alt="" h={16} w={16} borderRadius={8} />
               <Heading size="md" color={"white"} fontWeight={700} mt={2}>
-                Sign Up
+                Sign Up to Arrow Signals
               </Heading>
-              <Text color={"whiteAlpha.600"} fontSize={"md"}>
+              <Text color={"whiteAlpha.600"} fontSize={"sm"}>
                 Already have an account?
-                <Link href="/login" ml={2} color={"blue.300"}>
+                <Link href="/login" ml={2} color={"blue.300"} fontSize={"sm"}>
                   Login.
                 </Link>
               </Text>

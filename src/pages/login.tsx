@@ -132,9 +132,9 @@ export default function LoginPage() {
               <Heading size="md" color={"white"} fontWeight={700} mt={2}>
                 Log in to Arrow Signals
               </Heading>
-              <Text color={"whiteAlpha.600"} fontSize={"md"}>
+              <Text color={"whiteAlpha.600"} fontSize={"sm"}>
                 Don't have an account?{" "}
-                <Link href="/signup" ml={2} color={"blue.300"}>
+                <Link href="/signup" ml={2} color={"blue.300"} fontSize={"sm"}>
                   Signup
                 </Link>
               </Text>
